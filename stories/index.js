@@ -1,17 +1,24 @@
 import React from 'react';
-import { storiesOf, action, linkTo } from '@kadira/storybook';
-import Button from './Button';
-import Welcome from './Welcome';
+import { storiesOf, action } from '@kadira/storybook';
+import GitCommitList from '../src/components/GitCommitList'
 
-storiesOf('Welcome', module)
-  .add('to Storybook', () => (
-    <Welcome showApp={linkTo('Button')}/>
-  ));
-
-storiesOf('Button', module)
-  .add('with text', () => (
-    <Button onClick={action('clicked')}>Hello Button</Button>
+storiesOf('GitCommitList', module)
+  .add('when no commits are loaded', () => (
+    <GitCommitList onLoad={action('clicked')} />
   ))
-  .add('with some emoji', () => (
-    <Button onClick={action('clicked')}>😀 😎 👍 💯</Button>
-  ));
+  .add('with some commits', () => (
+    <GitCommitList
+      onLoad={action('clicked')}
+      commits={[
+        {
+          sha: 1234,
+          message: 'Here\'s a commit message',
+          committer: 'Mr Busy'
+        },
+        {
+          sha: 4567,
+          message: 'In this commit I did some stuff',
+          committer: 'Mr Grumpy'
+        }
+      ]} />
+  ))

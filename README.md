@@ -8,7 +8,7 @@ This was created to experiment with React & Redux.
 
     npm run go
 
-Run app in development mode on localhost:8000
+Run app in development mode
 
     npm test
 
