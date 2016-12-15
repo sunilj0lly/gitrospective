@@ -1,10 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
 import App from './App';
-import './index.css';
 import gitrospective from './reducers'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
+import './index.css';
+import 'bootstrap/dist/css/bootstrap.css'
 
 let store = createStore(gitrospective)
 
