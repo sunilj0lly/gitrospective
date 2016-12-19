@@ -4,7 +4,8 @@ import GitCommitList from '../components/GitCommitList'
 
 const mapStateToProps = (state) => {
   return {
-    commits: state.gitCommits
+    commits: state.gitCommits,
+    isAuthenticated: state.user.isAuthenticated
   }
 }
 

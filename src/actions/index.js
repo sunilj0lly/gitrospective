@@ -7,6 +7,6 @@ export const getAllCommits = () => {
 export const storeOAuthToken = (token) => {
   return {
     type: 'STORE_OAUTH_TOKEN',
-    token: token
+    token
   }
 }
