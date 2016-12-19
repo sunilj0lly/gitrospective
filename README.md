@@ -6,20 +6,18 @@ This was created to experiment with React & Redux.
 
 ### Usage
 
-    npm run go
+    npm start
 
-Run app in development mode
+Runs the app in development mode
 
     npm test
 
-Run test watcher
+Runs the test watcher
 
     npm run build
 
-Create production build
+Creates a production build
 
     npm run storybook
 
-Run storybook
-
-    npm run storybook
+Runs storybook, for the component guide
