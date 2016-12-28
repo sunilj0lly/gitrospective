@@ -8,14 +8,17 @@ export default class GitCommitList extends Component {
   render() {
 
     let controls;
+    let signedIn;
     if (!this.props.isAuthenticated) {
       controls = <a href={ GITHUB_AUTH_URL }>Grant access to GitHub</a>
     } else {
-      controls = <a href='#' onClick={() => this.props.onLoadClick()}>Load commit history</a>
+      signedIn = <p>Signed in to GitHub</p>
+      controls = <a href='#' onClick={(e) => this.props.onLoadClick(e)}>Load commit history</a>
     }
 
     return <section>
       <p>
+        { signedIn }
         { controls }
       </p>
       <ul>
