@@ -1,8 +1,9 @@
 import { connect } from 'react-redux'
-import GitCommitList from '../components/GitCommitList'
+import GitReposList from '../components/GitReposList'
 
 const mapStateToProps = (state) => {
   return {
+    repos: state.gitRepos,
     commits: state.gitCommits,
     isAuthenticated: state.user.isAuthenticated
   }
@@ -12,14 +13,18 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onLoadClick: (e) => {
       e.preventDefault();
-      dispatch({ type: 'FETCH_GIT_HUB_COMMIT_LIST' });
+      dispatch({ type: 'FETCH_GITHUB_REPOS_LIST' });
+    },
+    onReposClick: (e, repos) => {
+      e.preventDefault();
+      dispatch({ type: 'FETCH_COMMIT_LIST', repos });
     }
   }
 }
 
-const GitCommits = connect(
+const Container = connect(
   mapStateToProps,
   mapDispatchToProps
-)(GitCommitList)
+)(GitReposList)
 
-export default GitCommits
+export default Container

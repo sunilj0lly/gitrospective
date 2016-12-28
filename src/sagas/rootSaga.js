@@ -1,7 +1,8 @@
-import gitHubSaga from './githubSaga'
+import { fetchGithubRepos, fetchGithubCommitList } from './githubSaga'
 
 export default function* rootSaga() {
   yield [
-    gitHubSaga()
+    fetchGithubRepos(),
+    fetchGithubCommitList()
   ]
 }

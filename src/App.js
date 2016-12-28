@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GitCommits from './containers/GitCommitsContainer'
+import GitReposContainer from './containers/GitReposContainer'
 import './App.css';
 
 class App extends Component {
@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>gitrospective</h1>
-        <GitCommits />
+        <GitReposContainer />
       </div>
     );
   }

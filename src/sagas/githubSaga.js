@@ -1,13 +1,40 @@
-import { delay } from 'redux-saga'
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { put, select, takeLatest } from 'redux-saga/effects'
+import GitHub from 'github-api';
 
-function* fetchList(action) {
-  console.log('delay it!');
-  yield delay(1000)
-  console.log('return it!');
-  yield put({ type: 'I fetched the git list!' })
+const getToken = (state) => state.user.token
+
+function* fetchReposList(action) {
+  let token = yield select(getToken);
+  let api = new GitHub({
+     token: token
+  });
+  let user = api.getUser();
+  let repos = yield user.listRepos();
+  yield put({
+    type: 'GITHUB_REPOS_LIST_FETCHED',
+    message: repos.data
+  });
 }
 
-export default function* fetchGitHubCommitList() {
-  yield takeLatest('FETCH_GIT_HUB_COMMIT_LIST', fetchList);
+function* fetchCommitList(action) {
+  let token = yield select(getToken);
+  let api = new GitHub({
+     token: token
+  });
+  let userApi = api.getUser();
+  let profile = yield userApi.getProfile();
+  let reposApi = api.getRepo(profile.data.login, action.repos);
+  let commits = yield reposApi.listCommits();
+  yield put({
+    type: 'GITHUB_COMMITS_FETCHED',
+    commits: commits.data
+  })
+}
+
+export function* fetchGithubRepos() {
+  yield takeLatest('FETCH_GITHUB_REPOS_LIST', fetchReposList);
+}
+
+export function* fetchGithubCommitList() {
+  yield takeLatest('FETCH_COMMIT_LIST', fetchCommitList);
 }
