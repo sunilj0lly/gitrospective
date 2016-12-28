@@ -6,10 +6,17 @@ const GITHUB_AUTH_URL = 'https://github.com/login/oauth/authorize'
 export default class GitCommitList extends Component {
 
   render() {
+
+    let controls;
+    if (!this.props.isAuthenticated) {
+      controls = <a href={ GITHUB_AUTH_URL }>Grant access to GitHub</a>
+    } else {
+      controls = <a href='#' onClick={() => this.props.onLoadClick()}>Load commit history</a>
+    }
+
     return <section>
       <p>
-        <a href={ GITHUB_AUTH_URL }>Grant access to GitHub</a><br />
-        <a href='#' onClick={() => this.props.onLoadClick()}>Load commit history</a>
+        { controls }
       </p>
       <ul>
         { this.props.commits && this.props.commits.map(commit =>

@@ -1,13 +1,17 @@
+import _ from 'lodash'
+
 const auth = (state = {}, action) => {
   switch (action.type) {
     case 'STORE_OAUTH_TOKEN':
-      state.token = action.token;
-      state.isAuthenticated = true;
-    return state;
+      return _.merge({}, state, {
+        token: action.token,
+        isAuthenticated: true
+      });
 
     default:
-      state.isAuthenticated = false;
-    return state;
+      return _.merge({}, state, {
+        isAuthenticated: false
+      });
   }
 }
 
