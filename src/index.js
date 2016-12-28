@@ -3,15 +3,23 @@ import { render } from 'react-dom';
 import App from './App';
 import gitrospective from './reducers'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import { storeOAuthToken } from './actions/index'
+import { createStore, applyMiddleware } from 'redux'
+import { storeOAuthToken } from './actions/actions'
 import { getJSON, getCodeFromQueryParam } from './utils'
+import createSagaMiddleware from 'redux-saga'
+import sagas from './sagas/rootSaga'
+
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css'
 
 const GITHUB_AUTH_URL = 'http://localhost:9999/authenticate/';
 
-let store = createStore(gitrospective);
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(
+  gitrospective,
+  applyMiddleware(sagaMiddleware)
+);
+sagaMiddleware.run(sagas)
 
 getGitHubToken();
 

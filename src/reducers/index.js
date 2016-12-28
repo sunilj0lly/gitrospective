@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import gitCommits from './gitCommits'
-import user from './user'
+import gitCommits from './gitCommitsReducer'
+import user from './userReducer'
 
 const gitrospective = combineReducers({
   gitCommits,

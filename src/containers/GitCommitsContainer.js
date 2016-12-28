@@ -1,5 +1,4 @@
 import { connect } from 'react-redux'
-import { getAllCommits } from '../actions'
 import GitCommitList from '../components/GitCommitList'
 
 const mapStateToProps = (state) => {
@@ -13,7 +12,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onLoadClick: (e) => {
       e.preventDefault();
-      dispatch(getAllCommits())
+      dispatch({ type: 'FETCH_GIT_HUB_COMMIT_LIST' });
     }
   }
 }
