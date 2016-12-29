@@ -1,40 +1,33 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './App';
-import gitrospective from './reducers'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
-import { storeOAuthToken } from './actions/actions'
-import { getJSON, getCodeFromQueryParam } from './utils'
 import createSagaMiddleware from 'redux-saga'
+
 import sagas from './sagas/rootSaga'
+import reducers from './reducers/rootReducer'
+import { getCodeFromQueryParam } from './utils'
+
+import App from './App';
 
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css'
 
-const GITHUB_AUTH_URL = 'http://localhost:9999/authenticate/';
-
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
-  gitrospective,
+  reducers,
   applyMiddleware(sagaMiddleware)
 );
-sagaMiddleware.run(sagas)
 
-getGitHubToken();
-
-function getGitHubToken() {
-  var code = getCodeFromQueryParam();
-  if (code) {
-    getJSON(GITHUB_AUTH_URL + code)
-    .then(function(data) {
-      store.dispatch(storeOAuthToken(data.token));
-    })
-    .catch(function(error) {
-      alert('Wasn\'t able to autenticate with GitHub');
-    })
+function init() {
+  sagaMiddleware.run(sagas);
+  let githubAuthCode = getCodeFromQueryParam();
+  if (githubAuthCode) {
+    store.dispatch({ type: 'FETCH_GITHUB_AUTH', code: githubAuthCode });
   }
 }
+
+init();
 
 render(
   <Provider store={store}>
