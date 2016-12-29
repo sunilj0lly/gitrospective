@@ -7,6 +7,7 @@ import createSagaMiddleware from 'redux-saga'
 import sagas from './sagas/rootSaga'
 import reducers from './reducers/rootReducer'
 import { getCodeFromQueryParam } from './utils'
+import { fetchGithubAuth } from './actions/actions'
 
 import App from './App';
 
@@ -23,7 +24,7 @@ function init() {
   sagaMiddleware.run(sagas);
   let githubAuthCode = getCodeFromQueryParam();
   if (githubAuthCode) {
-    store.dispatch({ type: 'FETCH_GITHUB_AUTH', code: githubAuthCode });
+    store.dispatch(fetchGithubAuth(githubAuthCode));
   }
 }
 

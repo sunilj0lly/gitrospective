@@ -4,7 +4,7 @@ const auth = (state = {}, action) => {
   switch (action.type) {
     case 'STORE_OAUTH_TOKEN':
       return _.merge({}, state, {
-        token: action.token,
+        token: action.payload,
         isAuthenticated: true
       });
 
