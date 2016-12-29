@@ -51,11 +51,11 @@ GitReposList.propTypes = {
     message: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired
-  }).isRequired),
+  })),
   repos: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     htmlUrl: PropTypes.string.isRequired
-  }).isRequired),
+  })),
   isAuthenticated: PropTypes.bool.isRequired,
   onLoadClick: PropTypes.func.isRequired,
   onReposClick: PropTypes.func.isRequired
